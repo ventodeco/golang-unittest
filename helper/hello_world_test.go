@@ -9,6 +9,46 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func TestMain(m *testing.M) {
+	fmt.Println("Sebelum Unit Test")
+
+	m.Run()
+
+	fmt.Println("Setelah Unit Test")
+}
+
+func TestHelloWorldTable(t *testing.T) {
+	tests := []struct {
+		name     string
+		request  string
+		expected string
+	}{
+		{
+			name:     "Vento",
+			request:  "Vento",
+			expected: "Hello Vento",
+		},
+		{
+			name:     "Deco",
+			request:  "Deco",
+			expected: "Hello Deco",
+		},
+		{
+			name:     "Coba",
+			request:  "Coba",
+			expected: "Hello Coba",
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			result := HelloWorld(test.request)
+
+			require.Equal(t, test.expected, result)
+		})
+	}
+}
+
 func TestSubTest(t *testing.T) {
 	t.Run("TestHello", func(t *testing.T) {
 		result := HelloWorld("Vento")
@@ -19,14 +59,6 @@ func TestSubTest(t *testing.T) {
 		result := HelloWorld("Deco")
 		require.Equal(t, "Hello Deco", result)
 	})
-}
-
-func TestMain(m *testing.M) {
-	fmt.Println("Sebelum Unit Test")
-
-	m.Run()
-
-	fmt.Println("Setelah Unit Test")
 }
 
 func TestSkip(t *testing.T) {
