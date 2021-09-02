@@ -17,6 +17,55 @@ func TestMain(m *testing.M) {
 	fmt.Println("Setelah Unit Test")
 }
 
+func BenchmarkTable(b *testing.B) {
+	benchmarks := []struct {
+		name    string
+		request string
+	}{
+		{
+			name:    "Vento",
+			request: "Vento",
+		},
+		{
+			name:    "Deco",
+			request: "Deco",
+		},
+		{
+			name:    "Tes",
+			request: "Tes",
+		},
+	}
+
+	for _, benchmark := range benchmarks {
+		b.Run(benchmark.name, func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				HelloWorld(benchmark.request)
+			}
+		})
+	}
+}
+
+func BenchmarkSub(b *testing.B) {
+	b.Run("Vento", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWorld("Vento")
+		}
+	})
+
+	b.Run("Deco", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWorld("Deco")
+		}
+	})
+}
+
+func BenchmarkHelloWorld(b *testing.B) {
+	// TODO: Initialize
+	for i := 0; i < b.N; i++ {
+		HelloWorld("vento")
+	}
+}
+
 func TestHelloWorldTable(t *testing.T) {
 	tests := []struct {
 		name     string
